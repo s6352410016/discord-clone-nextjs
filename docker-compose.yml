@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: mysql-db
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=5087
+      - MYSQL_USER=bunlung
+      - MYSQL_PASSWORD=5087
+      - MYSQL_DATABASE=discord_db
+    volumes:
+      - mysqldata:/etc/mysql/conf.d
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=bunlung
+      - PMA_PASSWORD=5087
+    depends_on:
+      - db
+volumes:
+  mysqldata:
